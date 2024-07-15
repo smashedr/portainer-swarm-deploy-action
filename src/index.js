@@ -5,6 +5,7 @@ const Portainer = require('./portainer')
 ;(async () => {
     try {
         // console.log('github.context:', github.context)
+        console.log('github.context.ref:', github.context.ref)
         const { owner, repo } = github.context.repo
         console.log('owner:', owner)
         console.log('repo:', repo)
@@ -15,23 +16,26 @@ const Portainer = require('./portainer')
         console.log('url:', url)
         const token = core.getInput('token', { required: true })
         console.log('token:', token)
-        let endpoint = core.getInput('endpoint')
-        console.log('endpoint:', endpoint)
+        let endpointID = core.getInput('endpoint')
+        console.log('endpointID:', endpointID)
         const name = core.getInput('name', { required: true })
         console.log('name:', name)
-        const file = core.getInput('file', { required: true })
-        console.log('file:', file)
+        const composeFile = core.getInput('file', { required: true })
+        console.log('composeFile:', composeFile)
 
         const portainer = new Portainer(url, token)
 
-        if (!endpoint) {
+        if (!endpointID) {
             const endpoints = await portainer.getEndpoints()
             // console.log('endpoints:', endpoints)
-            endpoint = endpoints[0].Id
-            console.log('endpoint:', endpoint)
+            endpointID = endpoints[0]?.Id
+            console.log('endpointID:', endpointID)
+            if (!endpointID) {
+                return core.setFailed('No Endpoints Found!')
+            }
         }
 
-        const swarm = await portainer.getSwarm(endpoint)
+        const swarm = await portainer.getSwarm(endpointID)
         // console.log('swarm:', swarm)
         const swarmID = swarm.ID
         console.log('swarmID:', swarmID)
@@ -41,27 +45,29 @@ const Portainer = require('./portainer')
         console.log('stacks.length:', stacks.length)
         let stack = stacks.find((item) => item.Name === name)
         console.log('stack:', stack)
+        const stackID = stack?.Id
+        console.log('stackID:', stackID)
 
-        if (stack) {
-            console.log('Stack Found - Redeploying Stack')
+        if (stackID) {
+            console.log(`Stack Found - Redeploying Stack ID: ${stackID}`)
 
-            // const stack = portainer.updateStack({
-            //     prune: true,
-            //     pullImage: true,
-            //     repositoryReferenceName: github.context.ref,
-            //     repositoryAuthentication: false,
-            //     // repositoryPassword: 'string',
-            //     // repositoryUsername: 'string',
-            // })
-            // console.log('stack:', stack)
+            const stack = await portainer.updateStack(stackID, endpointID, {
+                prune: true,
+                pullImage: true,
+                repositoryReferenceName: github.context.ref,
+                repositoryAuthentication: false,
+                // repositoryPassword: 'string',
+                // repositoryUsername: 'string',
+            })
+            console.log('stack:', stack)
         } else {
             console.log('Stack NOT Found - Deploying NEW Stack')
 
-            // const stack = portainer.createStack({
+            // const stack = await portainer.createStack({
             //     name,
             //     swarmID,
             //     repositoryURL,
-            //     composeFile: file,
+            //     composeFile,
             //     tlsskipVerify: false,
             //     fromAppTemplate: false,
             //     repositoryReferenceName: github.context.ref,

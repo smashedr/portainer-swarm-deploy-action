@@ -34,10 +34,11 @@ class Portainer {
         return response.data
     }
 
-    async updateStack(stackID, body) {
+    async updateStack(stackID, endpointId, body) {
         const response = await this.client.put(
             `/stacks/${stackID}/git/redeploy`,
-            body
+            body,
+            { params: { endpointId } }
         )
         return response.data
     }
