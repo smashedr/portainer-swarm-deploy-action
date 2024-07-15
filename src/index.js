@@ -63,19 +63,19 @@ const Portainer = require('./portainer')
         } else {
             console.log('Stack NOT Found - Deploying NEW Stack')
 
-            // const stack = await portainer.createStack({
-            //     name,
-            //     swarmID,
-            //     repositoryURL,
-            //     composeFile,
-            //     tlsskipVerify: false,
-            //     fromAppTemplate: false,
-            //     repositoryReferenceName: github.context.ref,
-            //     repositoryAuthentication: false,
-            //     // repositoryUsername: 'myGitUsername',
-            //     // repositoryPassword: 'myGitPassword',
-            // })
-            // console.log('stack:', stack)
+            const stack = await portainer.createStack(endpointID, {
+                name,
+                swarmID,
+                repositoryURL,
+                composeFile,
+                tlsskipVerify: false,
+                fromAppTemplate: false,
+                repositoryReferenceName: github.context.ref,
+                repositoryAuthentication: false,
+                // repositoryUsername: 'myGitUsername',
+                // repositoryPassword: 'myGitPassword',
+            })
+            console.log('stack:', stack)
         }
 
         console.log('+++ SUCCESS ++++')

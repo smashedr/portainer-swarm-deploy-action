@@ -43,10 +43,11 @@ class Portainer {
         return response.data
     }
 
-    async createStack(body) {
+    async createStack(endpointId, body) {
         const response = await this.client.post(
             '/stacks/create/swarm/repository',
-            body
+            body,
+            { params: { endpointId } }
         )
         return response.data
     }
