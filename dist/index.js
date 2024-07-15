@@ -31530,7 +31530,7 @@ class Portainer {
         const agent = new https.Agent({
             rejectUnauthorized: false,
         })
-        this.headers = this.client = axios.create({
+        this.client = axios.create({
             baseURL: url,
             headers: { 'X-API-Key': token },
             httpsAgent: agent,
@@ -38214,7 +38214,7 @@ const Portainer = __nccwpck_require__(2275)
         const url = core.getInput('url', { required: true })
         console.log('url:', url)
         const token = core.getInput('token', { required: true })
-        console.log('token:', token)
+        // console.log('token:', token)
         let endpointID = core.getInput('endpoint')
         console.log('endpointID:', endpointID)
         const name = core.getInput('name', { required: true })

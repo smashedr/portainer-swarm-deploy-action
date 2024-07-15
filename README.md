@@ -43,7 +43,8 @@ Note: Currently testing so use: `smashedr/portainer-swarm-deploy-action@master`
 
 - Only works for repository stacks but can be expanded to support other types.
 
-This is a very simple action, for more details see: [src/index.js](src%2Findex.js)
+This is a very simple action, for more details see
+[src/index.js](src%2Findex.js) and [src/portainer.js](src%2Fportainer.js).
 
 # Support
 

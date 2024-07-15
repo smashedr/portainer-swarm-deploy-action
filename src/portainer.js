@@ -10,7 +10,7 @@ class Portainer {
         const agent = new https.Agent({
             rejectUnauthorized: false,
         })
-        this.headers = this.client = axios.create({
+        this.client = axios.create({
             baseURL: url,
             headers: { 'X-API-Key': token },
             httpsAgent: agent,
