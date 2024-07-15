@@ -21,7 +21,7 @@ inputs:
   file:
     description: "Compose File"
     required: false
-    default: "compose.yaml "
+    default: "compose.yaml"
 
 runs:
   using: "node20"
