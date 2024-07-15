@@ -11,8 +11,20 @@ const Portainer = require('./portainer')
 
         const portainer = new Portainer(url, token)
 
-        const stacks = await portainer.getStacks()
-        console.log('Stacks:', stacks)
+        const endpoints = await portainer.getEndpoints()
+        // console.log('endpoints:', endpoints)
+
+        const endpoint = endpoints[0].Id
+        console.log('endpoint:', endpoint)
+
+        const swarm = await portainer.getSwarm(endpoint)
+        // console.log('swarm:', swarm)
+
+        const swarmID = swarm.ID
+        console.log('swarmID:', swarmID)
+
+        // const stacks = await portainer.getStacks()
+        // console.log('stacks:', stacks)
 
         console.log('+++ SUCCESS ++++')
     } catch (e) {
