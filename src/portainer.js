@@ -1,12 +1,15 @@
-// import axios from 'axios'
-// import https from 'https'
-
 const axios = require('axios')
 const https = require('https')
 
 class Portainer {
     constructor(url, token) {
+        console.log('token:', token)
+        url = url.replace(/\/$/, '')
+        if (!url.endsWith('api')) {
+            url += '/api'
+        }
         this.url = url
+        console.log('this.url:', this.url)
         this.agent = new https.Agent({
             rejectUnauthorized: false,
         })
@@ -16,7 +19,7 @@ class Portainer {
     }
 
     async getStacks() {
-        const url = `${this.url}/api/stacks`
+        const url = `${this.url}/stacks`
         console.log('getStacks:', url)
         const response = await axios.get(url, {
             headers: this.headers,
@@ -27,18 +30,3 @@ class Portainer {
 }
 
 module.exports = Portainer
-
-// export async function getStacks(url, token) {
-//     url = url + '/api/stacks'
-//     console.log('getStacks:', url, token)
-//     const agent = new https.Agent({
-//         rejectUnauthorized: false,
-//     })
-//     const response = await axios.get(url, {
-//         headers: {
-//             'X-API-Key': token,
-//         },
-//         httpsAgent: agent,
-//     })
-//     return response.data
-// }
