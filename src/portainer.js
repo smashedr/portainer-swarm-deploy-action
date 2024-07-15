@@ -12,9 +12,7 @@ class Portainer {
         })
         this.headers = this.client = axios.create({
             baseURL: url,
-            headers: {
-                'X-API-Key': token,
-            },
+            headers: { 'X-API-Key': token },
             httpsAgent: agent,
         })
     }
@@ -24,13 +22,23 @@ class Portainer {
         return response.data
     }
 
-    async getSwarm(id) {
-        const response = await this.client.get(`/endpoints/${id}/docker/swarm`)
+    async getSwarm(endpointId) {
+        const response = await this.client.get(
+            `/endpoints/${endpointId}/docker/swarm`
+        )
         return response.data
     }
 
     async getStacks() {
         const response = await this.client.get('/stacks')
+        return response.data
+    }
+
+    async updateStack(stackID, body) {
+        const response = await this.client.put(
+            `/stacks/${stackID}/git/redeploy`,
+            body
+        )
         return response.data
     }
 

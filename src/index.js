@@ -4,7 +4,7 @@ const Portainer = require('./portainer')
 
 ;(async () => {
     try {
-        console.log('github.context:', github.context)
+        // console.log('github.context:', github.context)
         const { owner, repo } = github.context.repo
         console.log('owner:', owner)
         console.log('repo:', repo)
@@ -39,20 +39,38 @@ const Portainer = require('./portainer')
         const stacks = await portainer.getStacks()
         // console.log('stacks:', stacks)
         console.log('stacks.length:', stacks.length)
+        let stack = stacks.find((item) => item.Name === name)
+        console.log('stack:', stack)
 
-        // const stack = portainer.createStack({
-        //     composeFile: file,
-        //     fromAppTemplate: false,
-        //     name,
-        //     repositoryURL,
-        //     repositoryAuthentication: true,
-        //     repositoryUsername: 'myGitUsername',
-        //     repositoryPassword: 'myGitPassword',
-        //     repositoryReferenceName: 'refs/heads/master',
-        //     swarmID,
-        //     tlsskipVerify: false,
-        // })
-        // console.log('stack:', stack)
+        if (stack) {
+            console.log('Stack Found - Redeploying Stack')
+
+            // const stack = portainer.updateStack({
+            //     prune: true,
+            //     pullImage: true,
+            //     repositoryReferenceName: github.context.ref,
+            //     repositoryAuthentication: false,
+            //     // repositoryPassword: 'string',
+            //     // repositoryUsername: 'string',
+            // })
+            // console.log('stack:', stack)
+        } else {
+            console.log('Stack NOT Found - Deploying NEW Stack')
+
+            // const stack = portainer.createStack({
+            //     name,
+            //     swarmID,
+            //     repositoryURL,
+            //     composeFile: file,
+            //     tlsskipVerify: false,
+            //     fromAppTemplate: false,
+            //     repositoryReferenceName: github.context.ref,
+            //     repositoryAuthentication: false,
+            //     // repositoryUsername: 'myGitUsername',
+            //     // repositoryPassword: 'myGitPassword',
+            // })
+            // console.log('stack:', stack)
+        }
 
         console.log('+++ SUCCESS ++++')
     } catch (e) {
