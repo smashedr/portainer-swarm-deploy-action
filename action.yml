@@ -1,0 +1,18 @@
+name: "Portainer Swarm Deploy"
+description: "Portainer Swarm Deploy Action"
+author: "Shane"
+branding:
+  icon: "layers"
+  color: "blue"
+
+inputs:
+  url:
+    description: "Portainer URL"
+    required: true
+  token:
+    description: "Portainer Token"
+    required: true
+
+runs:
+  using: "node20"
+  main: "src/index.js"

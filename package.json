@@ -1,0 +1,17 @@
+{
+  "name": "portainer-swarm-deploy",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "ncc build src/index.js"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "axios": "^1.7.2"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.1",
+    "prettier": "^3.3.2"
+  }
+}
