@@ -1,7 +1,6 @@
 {
   "name": "portainer-swarm-deploy",
   "version": "0.0.1",
-  "type": "module",
   "scripts": {
     "build": "ncc build src/index.js"
   },
