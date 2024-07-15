@@ -69,7 +69,6 @@ const Portainer = require('./portainer')
                 repositoryURL,
                 composeFile,
                 tlsskipVerify: false,
-                fromAppTemplate: false,
                 repositoryReferenceName: github.context.ref,
                 repositoryAuthentication: false,
                 // repositoryUsername: 'myGitUsername',
