@@ -12,6 +12,16 @@ inputs:
   token:
     description: "Portainer Token"
     required: true
+  endpoint:
+    description: "Portainer Endpoint ID"
+    required: false
+  name:
+    description: "Stack Name"
+    required: true
+  file:
+    description: "Compose File"
+    required: false
+    default: "compose.yaml "
 
 runs:
   using: "node20"
